@@ -1,0 +1,56 @@
+CREATE TABLE `useritem` (
+  `tenTaiKhoan` varchar(20) NOT NULL,
+  `matKhau` varchar(20) NOT NULL,
+  `vaiTro` varchar(20) NOT NULL,
+  PRIMARY KEY (`tenTaiKhoan`)
+);
+
+CREATE TABLE `khupho` (
+	`maKhuPho` varchar(20) NOT NULL,
+	`tenKhuPho` varchar(20) NOT NULL,
+	PRIMARY KEY (`maKhuPho`) 
+);
+
+CREATE TABLE `hodan` (
+  `maHoDan` varchar(20) NOT NULL,
+  `soThanhVien` int(3) NOT NULL,
+  `soNha` int(4) NOT NULL,
+  `maKhuPho` varchar(20) NOT NULL,
+   PRIMARY KEY (`maHoDan`),
+   FOREIGN KEY (`maKhuPho`) REFERENCES `khupho`(`maKhuPho`)
+);
+
+CREATE TABLE `nguoi` (
+  `maNguoi` varchar(20) NOT NULL,
+  `hoVaTen` varchar(20) NOT NULL,
+  `tuoi` int(3) NOT NULL,
+  `namSinh` int(4) NOT NULL,
+  `maHoDan` varchar(20) NOT NULL,
+  `ngheNghiep` varchar(20) NOT NULL,
+   PRIMARY KEY (`maNguoi`),
+   FOREIGN KEY (`maHoDan`) REFERENCES `hodan`(`maHoDan`)
+);
+
+INSERT INTO `useritem` (`tenTaiKhoan`, `matKhau`, `vaiTro`) VALUES 
+('HiepAdmin', 'handsome', 'admin'),
+('HiepUser', 'handsome', 'user');
+
+INSERT INTO `khupho` (`maKhuPho`, `tenKhuPho`) VALUES
+('KP01', 'Dinh Cong Ha'),
+('KP02', 'Dinh Cong Thuong');
+
+INSERT INTO `hodan` (`maHoDan`, `soThanhVien`, `soNha`, `maKhuPho`) VALUES
+('HD01', 2, 10, 'KP01'),
+('HD02', 3, 11, 'KP01'),
+('HD03', 4, 15, 'KP02');
+
+INSERT INTO `nguoi` (`maNguoi`, `hoVaTen`, `tuoi`, `namSinh`, `ngheNghiep`, `maHoDan`) VALUES
+('NG01', 'Hoang Viet Thanh', 42, 1980, 'Sinh Vien', 'HD01'),
+('NG02', 'Hoang Thuy Tram', 11, 2011, 'Sinh Vien', 'HD01'),
+('NG03', 'Nguyen Thanh Nam', 32, 1990, 'Sinh Vien', 'HD02'),
+('NG04', 'Hoang Thi Ly', 28, 1995, 'Sinh Vien', 'HD02'),
+('NG05', 'Nguyen Tien Dung', 1, 2023, 'Sinh Vien', 'HD02'),
+('NG06', 'Hoang Viet Quan', 50, 1972, 'Sinh Vien', 'HD03'),
+('NG07', 'Nguyen Thanh Tam', 49, 1973, 'Sinh Vien', 'HD03'),
+('NG08', 'Hoang Tuan Hiep', 22, 2000, 'Sinh Vien', 'HD03'),
+('NG09', 'Hoang Tuan Anh', 15, 2007, 'Sinh Vien', 'HD03');
