@@ -48,19 +48,32 @@ public class Main extends JFrame{
 	 * Launch the application.
 	 */
 	
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Main mainWindow = new Main();
-					mainWindow.showAllKhuPho();
-					mainWindow.setVisible(true);
-					
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
+//	public static void main(String[] args) {
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					Main mainWindow = new Main();
+//					mainWindow.showAllKhuPho();
+//					mainWindow.setVisible(true);
+//					
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//	}
+	public Main() {
+		super();
+		addControls();
+		showAllKhuPho();
+	}
+	public void showWindow() {
+		this.setBounds(50, 50, 1015, 574);;
+		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		this.setResizable(true);
+		this.setLocationRelativeTo(null);
+		this.setVisible(true);
+
 	}
 //========================================================================
 	ArrayList<KhuPho> dsKP = new ArrayList<>();
@@ -82,7 +95,7 @@ public class Main extends JFrame{
 	/**
 	 * Create the frame.
 	 */
-	public Main() {
+	private void addControls() {
 		setTitle("Phần mềm quản lý khu phố");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(0, 0, 1015, 574);
@@ -90,7 +103,6 @@ public class Main extends JFrame{
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(70, 130, 180));
 		panel.setBounds(0, 500, 997, 30);

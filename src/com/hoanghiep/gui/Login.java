@@ -18,6 +18,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import com.hoanghiep.controllers.LoginController;
+import com.hoanghiep.models.UserItem;
 import com.hoanghiep.utils.ConnectDB;
 import javax.swing.JRadioButton;
 import javax.swing.JCheckBox;
@@ -28,6 +30,7 @@ public class Login {
 	private JPasswordField tfpwd;
 	JLabel Ustar = new JLabel("*");
 	JLabel Pstar = new JLabel("*");
+	UserItem user = new UserItem();
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -78,6 +81,16 @@ public class Login {
 		frame.getContentPane().add(tfusername);
 		tfusername.setColumns(10);
 
+		JCheckBox chckbxNewCheckBox = new JCheckBox("Quản trị");
+		chckbxNewCheckBox.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		chckbxNewCheckBox.setBounds(516, 459, 110, 30);
+		frame.getContentPane().add(chckbxNewCheckBox);
+
+		JCheckBox chckbxNewCheckBox_1 = new JCheckBox("Người dùng");
+		chckbxNewCheckBox_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		chckbxNewCheckBox_1.setBounds(666, 459, 120, 30);
+		frame.getContentPane().add(chckbxNewCheckBox_1);
+		
 		tfpwd = new JPasswordField();
 		tfpwd.setFont(new Font("Times New Roman", Font.BOLD, 23));
 		tfpwd.setBounds(578, 390, 208, 38);
@@ -95,32 +108,17 @@ public class Login {
 				if (String.valueOf(tfpwd.getPassword()).equals("")) {
 					Pstar.setVisible(true);
 				} else {
-					//ConnectDB connect = new ConnectDB();
-					Connection conn = ConnectDB.getConnection();
-					try {
-
-						PreparedStatement ps = conn
-								.prepareStatement("SELECT * FROM useritem WHERE tenTaiKhoan= ? AND matKhau=? ");
-						ps.setString(1, tfusername.getText());
-						ps.setString(2, String.valueOf(tfpwd.getPassword()));
-
-						ResultSet rs = ps.executeQuery();
-						if (rs.next()) {
-							Main main = new Main();
-							main.showAllKhuPho();
-							main.setVisible(true);
-							main.pack();
-							main.setLocationRelativeTo(null);
-							main.setBounds(50, 50, 1015, 574);
-							frame.setVisible(false);
-
-						} else
-							JOptionPane.showMessageDialog(null, "Error", "Please check user name / password",
-									JOptionPane.ERROR_MESSAGE);
-
-					} catch (SQLException p) {
-						p.printStackTrace();
+					
+					user.setTenTaiKhoan(tfusername.getText());
+					user.setMatKhau(String.valueOf(tfpwd.getPassword()));
+					
+					if(chckbxNewCheckBox.isSelected()) {
+						user.setVaiTro("admin");
 					}
+					if(LoginController.login(user)) {
+						frame.setVisible(false);
+					}
+
 				}
 			}
 		});
@@ -150,8 +148,8 @@ public class Login {
 		frame.getContentPane().add(Pstar);
 
 		JLabel label = new JLabel("");
-		label.setIcon(new ImageIcon("images\\login (8).png"));
-		label.setBounds(12, 234, 314, 283);
+		label.setIcon(new ImageIcon("src/com/hoanghiep/gui\\login.png"));
+		label.setBounds(100, 234, 314, 283);
 		frame.getContentPane().add(label);
 
 		JLabel lblAppName = new JLabel("Phần mềm quản lý khu phố");
@@ -164,14 +162,6 @@ public class Login {
 		lblMe.setBounds(109, 110, 636, 80);
 		frame.getContentPane().add(lblMe);
 
-		JCheckBox chckbxNewCheckBox = new JCheckBox("Quản trị");
-		chckbxNewCheckBox.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		chckbxNewCheckBox.setBounds(516, 459, 110, 30);
-		frame.getContentPane().add(chckbxNewCheckBox);
-
-		JCheckBox chckbxNewCheckBox_1 = new JCheckBox("Người dùng");
-		chckbxNewCheckBox_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		chckbxNewCheckBox_1.setBounds(666, 459, 120, 30);
-		frame.getContentPane().add(chckbxNewCheckBox_1);
+		
 	}
 }

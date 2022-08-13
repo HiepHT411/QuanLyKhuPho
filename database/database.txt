@@ -17,7 +17,7 @@ CREATE TABLE `hodan` (
   `soNha` int(4) NOT NULL,
   `maKhuPho` varchar(20) NOT NULL,
    PRIMARY KEY (`maHoDan`),
-   FOREIGN KEY (`maKhuPho`) REFERENCES `khupho`(`maKhuPho`)
+   FOREIGN KEY (`maKhuPho`) REFERENCES `khupho`(`maKhuPho`) ON DELETE CASCADE
 );
 
 CREATE TABLE `nguoi` (
@@ -28,7 +28,7 @@ CREATE TABLE `nguoi` (
   `maHoDan` varchar(20) NOT NULL,
   `ngheNghiep` varchar(20) NOT NULL,
    PRIMARY KEY (`maNguoi`),
-   FOREIGN KEY (`maHoDan`) REFERENCES `hodan`(`maHoDan`)
+   FOREIGN KEY (`maHoDan`) REFERENCES `hodan`(`maHoDan`) ON DELETE CASCADE
 );
 
 INSERT INTO `useritem` (`tenTaiKhoan`, `matKhau`, `vaiTro`) VALUES 
@@ -37,12 +37,22 @@ INSERT INTO `useritem` (`tenTaiKhoan`, `matKhau`, `vaiTro`) VALUES
 
 INSERT INTO `khupho` (`maKhuPho`, `tenKhuPho`) VALUES
 ('KP01', 'Dinh Cong Ha'),
-('KP02', 'Dinh Cong Thuong');
+('KP02', 'Dinh Cong Thuong'),
+('KP03', 'Linh Đàm'),
+('KP04', 'Vĩnh Hưng'),
+('KP10', 'Duy Tân'),
+('KP11', 'Nguyễn Trãi'),
+('KP111', 'Updated Name'),
+('KP12', 'Kim Giang'),
+('KP15', 'Tân Mai');
 
 INSERT INTO `hodan` (`maHoDan`, `soThanhVien`, `soNha`, `maKhuPho`) VALUES
 ('HD01', 2, 10, 'KP01'),
 ('HD02', 3, 11, 'KP01'),
-('HD03', 4, 15, 'KP02');
+('HD03', 4, 15, 'KP02'),
+('HD04', 4, 30, 'KP04'),
+('HD12', 3, 33, 'KP12'),
+('HD15', 5, 22, 'KP15');
 
 INSERT INTO `nguoi` (`maNguoi`, `hoVaTen`, `tuoi`, `namSinh`, `ngheNghiep`, `maHoDan`) VALUES
 ('NG01', 'Hoang Viet Thanh', 42, 1980, 'Sinh Vien', 'HD01'),
@@ -50,7 +60,10 @@ INSERT INTO `nguoi` (`maNguoi`, `hoVaTen`, `tuoi`, `namSinh`, `ngheNghiep`, `maH
 ('NG03', 'Nguyen Thanh Nam', 32, 1990, 'Sinh Vien', 'HD02'),
 ('NG04', 'Hoang Thi Ly', 28, 1995, 'Sinh Vien', 'HD02'),
 ('NG05', 'Nguyen Tien Dung', 1, 2023, 'Sinh Vien', 'HD02'),
-('NG06', 'Hoang Viet Quan', 50, 1972, 'Sinh Vien', 'HD03'),
+('NG06', 'Hoang Tuan Hiep', 22, 2000, 'Sinh Vien', 'HD03'),
 ('NG07', 'Nguyen Thanh Tam', 49, 1973, 'Sinh Vien', 'HD03'),
-('NG08', 'Hoang Tuan Hiep', 22, 2000, 'Sinh Vien', 'HD03'),
-('NG09', 'Hoang Tuan Anh', 15, 2007, 'Sinh Vien', 'HD03');
+('NG08', 'Hoang Viet Quan', 50, 1972, 'Sinh Vien', 'HD03'),
+('NG09', 'Hoang Tuan Anh', 15, 2007, 'Sinh Vien', 'HD03'),
+('NG12', 'Nguyen Van Test', 25, 1997, 'Sinh Vien', 'HD04'),
+('NG13', 'Nguyen Thi Vui', 20, 2002, 'Sinh Vien', 'HD12'),
+('NG14', 'Nguyen Tieng Cuoi', 20, 2002, 'Sinh Vien', 'HD15');
